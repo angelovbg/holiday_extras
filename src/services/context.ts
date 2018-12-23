@@ -4,7 +4,7 @@ import { CreateUserService, GetAllUsersService, GetUserService, UpdateUserServic
 export class Context {
     public constructor() {
 
-    };
+    }
 
     get userRouter(): UserRouter {
         return new UserRouter(this.createUserService, this.getAllUsersService, this.getUserService, this.updateUserService, this.deleteUserService);
