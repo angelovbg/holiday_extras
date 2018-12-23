@@ -1,10 +1,12 @@
 import { UserRouter } from '../routers';
-import { CreateUserService, GetAllUsersService, GetUserService, UpdateUserService, DeleteUserService } from './';
-import { Users } from '../models';
+import { CreateUserService, GetAllUsersService, GetUserService, UpdateUserService, DeleteUserService, ResponseSender } from './';
+import { PostgresDb, Users } from '../models';
 
 export class Context {
-    public constructor() {
+    private _database: PostgresDb;
 
+    public constructor() {
+        this.database = PostgresDb.Instance();
     }
 
     // routers
@@ -14,7 +16,7 @@ export class Context {
 
     // services
     get createUserService(): CreateUserService {
-        return new CreateUserService(this.users);
+        return new CreateUserService(this.users, this.responseSender);
     }
 
     get getAllUsersService(): GetAllUsersService {
@@ -33,8 +35,20 @@ export class Context {
         return new DeleteUserService(this.users);
     }
 
+    get responseSender(): ResponseSender {
+        return new ResponseSender();
+    }
+
     // models
     get users(): Users {
-        return new Users();
+        return new Users(this.database, this.responseSender);
+    }
+
+    get database(): PostgresDb {
+        return this._database;
+    }
+
+    set database(value: PostgresDb) {
+        this._database = value;
     }
 }
