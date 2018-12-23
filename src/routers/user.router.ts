@@ -1,26 +1,27 @@
 import { Request, Response, Router } from 'express';
-import { CreateUserService, GetAllUsersService, GetUserService, UpdateUserService, DeleteUserService } from '../services';
+import { SecurityCreateUserService, GetAllUsersService, SecurityGetUserService, SecurityUpdateUserService, SecurityDeleteUserService } from '../services';
 import BaseRouter from './base.router';
 
 export class UserRouter extends BaseRouter {
     private _router: Router;
-    private createUserService: CreateUserService;
+    private securityCreateUserService: SecurityCreateUserService;
     private getAllUsersService: GetAllUsersService;
-    private getUserService: GetUserService;
-    private updateUserService: UpdateUserService;
-    private deleteUserService: DeleteUserService;
+    private securityGetUserService: SecurityGetUserService;
+    private securityUpdateUserService: SecurityUpdateUserService;
+    private securityDeleteUserService: SecurityDeleteUserService;
 
-    public constructor(createUserService: CreateUserService, getAllUsersService: GetAllUsersService, getUserService: GetUserService, updateUserService: UpdateUserService, deleteUserService: DeleteUserService) {
+    public constructor(securityCreateUserService: SecurityCreateUserService, getAllUsersService: GetAllUsersService, securityGetUserService: SecurityGetUserService,
+                       securityUpdateUserService: SecurityUpdateUserService, securityDeleteUserService: SecurityDeleteUserService) {
         super();
 
         this._router = Router();
         this.routes();
 
-        this.createUserService = createUserService;
+        this.securityCreateUserService = securityCreateUserService;
         this.getAllUsersService = getAllUsersService;
-        this.getUserService = getUserService;
-        this.updateUserService = updateUserService;
-        this.deleteUserService = deleteUserService;
+        this.securityGetUserService = securityGetUserService;
+        this.securityUpdateUserService = securityUpdateUserService;
+        this.securityDeleteUserService = securityDeleteUserService;
     }
 
     get router(): Router {
@@ -51,7 +52,7 @@ export class UserRouter extends BaseRouter {
                 });
         },
         (req: Request, res: Response) => {
-            this.getUserService.execute(req, res);
+            this.securityGetUserService.execute(req, res);
         });
 
         this.router.post('/', (req: Request, res: Response, next: any) => {
@@ -64,7 +65,7 @@ export class UserRouter extends BaseRouter {
                 });
         },
         (req: Request, res: Response) => {
-            this.createUserService.execute(req, res);
+            this.securityCreateUserService.execute(req, res);
         });
 
         this.router.put('/:id', (req: Request, res: Response, next: any) => {
@@ -77,7 +78,7 @@ export class UserRouter extends BaseRouter {
                 });
         },
         (req: Request, res: Response) => {
-            this.updateUserService.execute(req, res);
+            this.securityUpdateUserService.execute(req, res);
         });
 
         this.router.delete('/:id', (req: Request, res: Response, next: any) => {
@@ -90,7 +91,7 @@ export class UserRouter extends BaseRouter {
                 });
         },
         (req: Request, res: Response) => {
-            this.deleteUserService.execute(req, res);
+            this.securityDeleteUserService.execute(req, res);
         });
     }
 }

@@ -1,6 +1,7 @@
 import { ApiConstants } from '../constants';
 import { ResponseSender } from '../services';
 import { PostgresDb } from './';
+import { Validator } from '../validators';
 
 export class Users {
     private _id: number;
@@ -11,10 +12,12 @@ export class Users {
     private _table_name: string = 'users';
     private database: PostgresDb;
     private responseSender: ResponseSender;
+    private validator: Validator;
 
-    public constructor(database: PostgresDb, responseSender: ResponseSender) {
+    public constructor(database: PostgresDb, validator: Validator, responseSender: ResponseSender) {
         this.database = database;
         this.responseSender = responseSender;
+        this.validator = validator;
     }
 
     get id(): number {
@@ -30,6 +33,14 @@ export class Users {
     }
 
     set email(value: string) {
+        if (this.validator.isValidEmail(value)) {
+            throw new Error('Invalid email');
+        }
+
+        if (this.validator.isValidEmailLength(value)) {
+            throw new Error('Invalid email length');
+        }
+
         this._email = value;
     }
 
@@ -38,6 +49,14 @@ export class Users {
     }
 
     set given_name(value: string) {
+        if (this.validator.isValidName(value)) {
+            throw new Error('Invalid given_name');
+        }
+
+        if (this.validator.isValidNameLength(value)) {
+            throw new Error('Invalid given_name length');
+        }
+
         this._given_name = value;
     }
 
@@ -46,6 +65,14 @@ export class Users {
     }
 
     set family_name(value: string) {
+        if (this.validator.isValidName(value)) {
+            throw new Error('Invalid family_name');
+        }
+
+        if (this.validator.isValidNameLength(value)) {
+            throw new Error('Invalid family_name length');
+        }
+
         this._family_name = value;
     }
 

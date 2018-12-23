@@ -1,6 +1,8 @@
 import { UserRouter } from '../routers';
-import { CreateUserService, GetAllUsersService, GetUserService, UpdateUserService, DeleteUserService, ResponseSender } from './';
+import { CreateUserService, GetAllUsersService, GetUserService, UpdateUserService, DeleteUserService, ResponseSender,
+        SecurityCreateUserService, SecurityDeleteUserService, SecurityUpdateUserService, SecurityGetUserService } from './';
 import { PostgresDb, Users } from '../models';
+import { Validator } from '../validators';
 
 export class Context {
     private _database: PostgresDb;
@@ -11,7 +13,7 @@ export class Context {
 
     // routers
     get userRouter(): UserRouter {
-        return new UserRouter(this.createUserService, this.getAllUsersService, this.getUserService, this.updateUserService, this.deleteUserService);
+        return new UserRouter(this.securityCreateUserService, this.getAllUsersService, this.securityGetUserService, this.securityUpdateUserService, this.securityDeleteUserService);
     }
 
     // services
@@ -39,9 +41,26 @@ export class Context {
         return new ResponseSender();
     }
 
+    // security service
+    get securityCreateUserService(): SecurityCreateUserService {
+        return new SecurityCreateUserService(this.responseSender, this.createUserService, this.validator);
+    }
+
+    get securityUpdateUserService(): SecurityUpdateUserService {
+        return new SecurityUpdateUserService(this.responseSender, this.updateUserService, this.validator);
+    }
+
+    get securityDeleteUserService(): SecurityDeleteUserService {
+        return new SecurityDeleteUserService(this.deleteUserService, this.responseSender);
+    }
+
+    get securityGetUserService(): SecurityGetUserService {
+        return new SecurityGetUserService(this.getUserService, this.responseSender);
+    }
+
     // models
     get users(): Users {
-        return new Users(this.database, this.responseSender);
+        return new Users(this.database, this.validator, this.responseSender);
     }
 
     get database(): PostgresDb {
@@ -50,5 +69,10 @@ export class Context {
 
     set database(value: PostgresDb) {
         this._database = value;
+    }
+
+    // validators
+    get validator(): Validator {
+        return new Validator();
     }
 }
