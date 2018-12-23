@@ -1,0 +1,24 @@
+{
+  "name": "holiday_extras",
+  "version": "1.0.0",
+  "description": "User API\u001b[D",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build-ts && node dist/index.js",
+    "build-ts": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angelovbg/holiday_extras.git"
+  },
+  "author": "Angel Angelov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/angelovbg/holiday_extras/issues"
+  },
+  "homepage": "https://github.com/angelovbg/holiday_extras#readme",
+  "devDependencies": {
+    "typescript": "^3.2.2"
+  }
+}

@@ -1,2 +1,2 @@
-# holiday_extras
+# Holiday Extras
 CRUD user API
