@@ -27,6 +27,14 @@ class Server {
     public config(): void {
         this.app.set('port', process.env.APP_PORT || 3000);
 
+        this.app.use(bodyParser.json());
+        this.app.use((error: any, request: Request, response: express.Response, next: any) => {
+            if (error !== null) {
+                return response.json({'error': 'Invalid JSON'});
+            }
+            return next();
+        });
+
         this.app.use(bodyParser.urlencoded({extended: true}));
         this.app.use(expressValidator());
 

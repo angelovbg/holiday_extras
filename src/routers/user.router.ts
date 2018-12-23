@@ -26,23 +26,23 @@ export class UserRouter {
 
     public routes(): void {
         this.router.get('/', (req: Request, res: Response) => {
-            this.getAllUsersService.execute();
+            this.getAllUsersService.execute(req, res);
         });
 
         this.router.get('/:id', (req: Request, res: Response) => {
-            this.getUserService.execute();
+            this.getUserService.execute(req, res);
         });
 
         this.router.post('/', (req: Request, res: Response) => {
-            this.createUserService.execute();
+            this.createUserService.execute(req, res);
         });
 
         this.router.put('/:id', (req: Request, res: Response) => {
-            this.updateUserService.execute();
+            this.updateUserService.execute(req, res);
         });
 
         this.router.delete('/:id', (req: Request, res: Response) => {
-            this.deleteUserService.execute();
+            this.deleteUserService.execute(req, res);
         });
     }
 }
