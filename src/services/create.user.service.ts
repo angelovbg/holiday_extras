@@ -21,7 +21,7 @@ export class CreateUserService {
 
         user.create()
             .then(() => {
-                this.responseSender.setupValidData(ApiConstants.STATUS_OK, ApiConstants.MESSAGE_OK, '');
+                this.responseSender.setupValidData(ApiConstants.STATUS_CREATED, ApiConstants.MESSAGE_CREATED, '');
                 this.responseSender.sendValidResponse(res);
             })
             .catch((err: any) => {

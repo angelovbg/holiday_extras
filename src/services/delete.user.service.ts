@@ -17,7 +17,7 @@ export class DeleteUserService {
 
         this.users.delete(userId)
             .then(() => {
-                this.responseSender.setupValidData(ApiConstants.STATUS_OK, ApiConstants.MESSAGE_OK, '');
+                this.responseSender.setupValidData(ApiConstants.STATUS_NO_CONTENT, ApiConstants.MESSAGE_NO_CONTENT, '');
                 this.responseSender.sendValidResponse(res);
             })
             .catch((err: any) => {

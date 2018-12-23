@@ -23,6 +23,8 @@ psql -U postgres -c "CREATE DATABASE \"holiday_extras\" WITH OWNER = test_user E
 
 npm run migrate
 
+User API accept Content-Type form urlEncoded or application/json
+
 get all users
 GET - http://localhost:3000/
 
