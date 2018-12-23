@@ -43,11 +43,11 @@ export class Context {
 
     // security service
     get securityCreateUserService(): SecurityCreateUserService {
-        return new SecurityCreateUserService(this.responseSender, this.createUserService, this.validator);
+        return new SecurityCreateUserService(this.users, this.responseSender, this.createUserService, this.validator);
     }
 
     get securityUpdateUserService(): SecurityUpdateUserService {
-        return new SecurityUpdateUserService(this.responseSender, this.updateUserService, this.validator);
+        return new SecurityUpdateUserService(this.users, this.responseSender, this.updateUserService, this.validator);
     }
 
     get securityDeleteUserService(): SecurityDeleteUserService {

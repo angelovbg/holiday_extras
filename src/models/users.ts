@@ -33,11 +33,11 @@ export class Users {
     }
 
     set email(value: string) {
-        if (this.validator.isValidEmail(value)) {
+        if (!this.validator.isValidEmail(value)) {
             throw new Error('Invalid email');
         }
 
-        if (this.validator.isValidEmailLength(value)) {
+        if (!this.validator.isValidEmailLength(value)) {
             throw new Error('Invalid email length');
         }
 
@@ -49,11 +49,11 @@ export class Users {
     }
 
     set given_name(value: string) {
-        if (this.validator.isValidName(value)) {
+        if (!this.validator.isValidName(value)) {
             throw new Error('Invalid given_name');
         }
 
-        if (this.validator.isValidNameLength(value)) {
+        if (!this.validator.isValidNameLength(value)) {
             throw new Error('Invalid given_name length');
         }
 
@@ -65,11 +65,11 @@ export class Users {
     }
 
     set family_name(value: string) {
-        if (this.validator.isValidName(value)) {
+        if (!this.validator.isValidName(value)) {
             throw new Error('Invalid family_name');
         }
 
-        if (this.validator.isValidNameLength(value)) {
+        if (!this.validator.isValidNameLength(value)) {
             throw new Error('Invalid family_name length');
         }
 
@@ -99,18 +99,51 @@ export class Users {
                         client.release();
 
                         if (err) {
-                            err.statusCode = ApiConstants.STATUS_INVALID_REQUEST;
-                            return reject(err);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Error', ApiConstants.MESSAGE_INVALID_REQUEST, 2003);
+                            return reject(this.responseSender);
                         }
 
                         const result = query.rows[0];
 
                         if (!result) {
-                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, 'Error', ApiConstants.MESSAGE_OBJECT_NOT_FOUND, 2002);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, 'Error', ApiConstants.MESSAGE_OBJECT_NOT_FOUND, 2004);
                             return reject(this.responseSender);
                         }
 
                         return resolve(result);
+                    });
+                });
+        });
+    }
+
+    public getByEmail(email: string, userId?: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.database.getClient()
+                .then((client) => {
+                    client.query({
+                        text: 'SELECT * FROM ' + this._table_name + ' WHERE email = $1 LIMIT 1',
+                        values: [email]
+                    }, (err: any, query: any) => {
+                        client.release();
+
+                        if (err) {
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Error', ApiConstants.MESSAGE_INVALID_REQUEST, 2002);
+                            return reject(this.responseSender);
+                        }
+
+                        const result = query.rows[0];
+
+                        if (typeof result === 'undefined') {
+                            return resolve();
+                        } else {
+                            if (userId) {
+                                if (result.hasOwnProperty('id') && result.id == userId) {
+                                    return resolve();
+                                }
+                            }
+
+                            return reject();
+                        }
                     });
                 });
         });
@@ -121,7 +154,7 @@ export class Users {
             this.database.getClient()
                 .then((client) => {
                     client.query({
-                        text: 'SELECT * FROM ' + this._table_name,
+                        text: 'SELECT * FROM ' + this._table_name + ' ORDER BY id',
                         values: []
                     }, (err: any, query: any) => {
                         client.release();

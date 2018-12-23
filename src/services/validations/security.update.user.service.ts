@@ -2,13 +2,16 @@ import { Request, Response } from 'express';
 import { ApiConstants } from '../../constants';
 import { UpdateUserService, ResponseSender } from '../';
 import { Validator } from '../../validators';
+import { Users } from '../../models';
 
 export class SecurityUpdateUserService {
+    private users: Users;
     private updateUserService: UpdateUserService;
     private responseSender: ResponseSender;
     private validator: Validator;
 
-    public constructor(responseSender: ResponseSender, updateUserService: UpdateUserService, validator: Validator) {
+    public constructor(users: Users, responseSender: ResponseSender, updateUserService: UpdateUserService, validator: Validator) {
+        this.users = users;
         this.responseSender = responseSender;
         this.updateUserService = updateUserService;
         this.validator = validator;
@@ -65,6 +68,19 @@ export class SecurityUpdateUserService {
             return this.responseSender.sendErrorResponse(res);
         }
 
-        this.updateUserService.execute(req, res);
+        if (!req.params.hasOwnProperty('id')) {
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'Missing id query.', 1110);
+            return this.responseSender.sendErrorResponse(res);
+        }
+
+        this.users.getByEmail(req.body.email, req.params.id)
+            .then(() => {
+                this.updateUserService.execute(req, res);
+            })
+            .catch((err: any) => {
+                console.log(err);
+                this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'Email already exist.', 1109);
+                return this.responseSender.sendErrorResponse(res);
+            });
     }
 }

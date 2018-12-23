@@ -2,13 +2,16 @@ import { Request, Response } from 'express';
 import { ApiConstants } from '../../constants';
 import { CreateUserService, ResponseSender } from '../';
 import { Validator } from '../../validators';
+import { Users } from '../../models';
 
 export class SecurityCreateUserService {
+    private users: Users;
     private createUserService: CreateUserService;
     private responseSender: ResponseSender;
     private validator: Validator;
 
-    public constructor(responseSender: ResponseSender, createUserService: CreateUserService, validator: Validator) {
+    public constructor(users: Users, responseSender: ResponseSender, createUserService: CreateUserService, validator: Validator) {
+        this.users = users;
         this.responseSender = responseSender;
         this.createUserService = createUserService;
         this.validator = validator;
@@ -65,6 +68,14 @@ export class SecurityCreateUserService {
             return this.responseSender.sendErrorResponse(res);
         }
 
-        this.createUserService.execute(req, res);
+        this.users.getByEmail(req.body.email)
+            .then(() => {
+                this.createUserService.execute(req, res);
+            })
+            .catch((err: any) => {
+                console.log(err);
+                this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'Email already exist.', 1009);
+                return this.responseSender.sendErrorResponse(res);
+            });
     }
 }
