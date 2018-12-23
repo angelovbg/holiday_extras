@@ -22,3 +22,20 @@ psql -U postgres -c "CREATE ROLE test_user PASSWORD 'password' LOGIN NOSUPERUSER
 psql -U postgres -c "CREATE DATABASE \"holiday_extras\" WITH OWNER = test_user ENCODING = 'UTF8' CONNECTION LIMIT = -1;"
 
 npm run migrate
+
+get all users
+GET - http://localhost:3000/
+
+get user by id
+GET - http://localhost:3000/3
+
+create user
+POST - http://localhost:3000/
+headers body = { email: "", given_name: "", family_name: "" }
+
+delete user by id
+DELETE - http://localhost:3000/3
+
+update user by id
+PUT - http://localhost:3000/
+headers body = { email: "", given_name: "", family_name: "" }
