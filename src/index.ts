@@ -18,7 +18,6 @@ class Server {
         this.app = express();
 
         this.context = new Context();
-        this.userRouter = this.context.userRouter.router;
 
         this.config();
         this.routes();
@@ -48,7 +47,7 @@ class Server {
         const router = express.Router();
 
         this.app.use('/', router);
-        this.app.use('/users/', this.userRouter);
+        this.app.use('/users/', this.context.userRouter.router);
     }
 }
 
