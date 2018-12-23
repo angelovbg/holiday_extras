@@ -57,6 +57,60 @@ export class Users {
         this._created_at = value;
     }
 
+    get table_name(): string {
+        return this._table_name;
+    }
+
+    public getById(userId: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.database.getClient()
+                .then((client) => {
+                    client.query({
+                        text: 'SELECT * FROM ' + this._table_name + ' WHERE id = $1 LIMIT 1',
+                        values: [userId]
+                    }, (err: any, query: any) => {
+                        client.release();
+
+                        if (err) {
+                            err.statusCode = ApiConstants.STATUS_INVALID_REQUEST;
+                            return reject(err);
+                        }
+
+                        const result = query.rows[0];
+
+                        if (!result) {
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, 'Error', ApiConstants.MESSAGE_OBJECT_NOT_FOUND, 2002);
+                            return reject(this.responseSender);
+                        }
+
+                        return resolve(result);
+                    });
+                });
+        });
+    }
+
+    public getAll(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.database.getClient()
+                .then((client) => {
+                    client.query({
+                        text: 'SELECT * FROM ' + this._table_name,
+                        values: []
+                    }, (err: any, query: any) => {
+                        client.release();
+
+                        if (err) {
+                            err.statusCode = ApiConstants.STATUS_INVALID_REQUEST;
+                            return reject(err);
+                        }
+
+                        const result = query.rows;
+                        return resolve(result);
+                    });
+                });
+        });
+    }
+
     public create(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.database.getClient()
@@ -65,6 +119,7 @@ export class Users {
                         text: 'INSERT INTO ' + this._table_name + ' (email, given_name, family_name) VALUES ($1, $2, $3)',
                         values: [this.email, this.given_name, this.family_name]
                     }, (err: any, result: any) => {
+                        client.release();
 
                         if (err) {
                             console.warn(err);
@@ -76,8 +131,63 @@ export class Users {
                     });
                 })
                 .catch((err: any) => {
-                    this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, err.name, ApiConstants.MESSAGE_INVALID_REQUEST, 1111);
+                    this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, err.name, ApiConstants.MESSAGE_INVALID_REQUEST, 2000);
                     return reject(this.responseSender);
+                });
+        });
+    }
+
+    public update(userId: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.database.getClient()
+                .then((client) => {
+                    client.query({
+                        text: 'UPDATE ' + this._table_name + ' SET email = $2, given_name = $3, family_name = $4 WHERE id = $1',
+                        values: [userId, this.email, this.given_name, this.family_name],
+                    }, (err: any, result: any) => {
+                        client.release();
+
+                        if (result.rowCount === 0) {
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, 2003);
+                            return reject(this.responseSender);
+                        }
+
+                        if (err) {
+                            console.log(err);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, err.name, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, err.code);
+                            return reject(this.responseSender);
+                        }
+
+                        return resolve();
+                    });
+                });
+        });
+    }
+
+    public delete(userId: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.database.getClient()
+                .then((client) => {
+                    client.query({
+                        text: 'DELETE FROM ' + this._table_name + ' AS t WHERE id = $1',
+                        values: [userId],
+                    }, (err: any, result: any) => {
+                        client.release();
+
+                        if (result.rowCount === 0) {
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, 2001);
+                            return reject(this.responseSender);
+                        }
+
+                        if (err) {
+                            console.log(err);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, err.name, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, err.code);
+                            return reject(this.responseSender);
+                        }
+
+                        this.responseSender.setupValidData(ApiConstants.STATUS_OK, ApiConstants.MESSAGE_OK, result.rows);
+                        return resolve(this.responseSender);
+                    });
                 });
         });
     }

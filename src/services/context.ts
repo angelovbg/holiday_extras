@@ -20,19 +20,19 @@ export class Context {
     }
 
     get getAllUsersService(): GetAllUsersService {
-        return new GetAllUsersService(this.users);
+        return new GetAllUsersService(this.users, this.responseSender);
     }
 
     get getUserService(): GetUserService {
-        return new GetUserService(this.users);
+        return new GetUserService(this.users, this.responseSender);
     }
 
     get updateUserService(): UpdateUserService {
-        return new UpdateUserService(this.users);
+        return new UpdateUserService(this.users, this.responseSender);
     }
 
     get deleteUserService(): DeleteUserService {
-        return new DeleteUserService(this.users);
+        return new DeleteUserService(this.users, this.responseSender);
     }
 
     get responseSender(): ResponseSender {

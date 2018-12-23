@@ -29,7 +29,6 @@ export class UserRouter extends BaseRouter {
 
     public routes(): void {
         this.router.get('/', (req: Request, res: Response, next: any) => {
-            console.log('here');
             super.checkAccessRoute(req, res)
                 .then(() => {
                     next();
@@ -69,14 +68,12 @@ export class UserRouter extends BaseRouter {
         });
 
         this.router.put('/:id', (req: Request, res: Response, next: any) => {
-            console.log('here');
             super.checkAccessRoute(req, res)
                 .then(() => {
-                    console.log('here resolve');
                     next();
                 })
                 .catch((err: any) => {
-                    console.log('here reject');
+
                 });
         },
         (req: Request, res: Response) => {
