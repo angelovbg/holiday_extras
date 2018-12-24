@@ -19,54 +19,54 @@ export class SecurityUpdateUserService {
 
     public execute(req: Request, res: Response): void {
         if (!req.body.hasOwnProperty('email')) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_EMAIL_PROPERTY, 1100);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_EMAIL_PROPERTY, ApiConstants.ERROR_CODE_UPDATE_USER_MISSING_EMAIL);
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!this.validator.isValidEmail(req.body.email)) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_EMAIL_FORMAT, 1103);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_EMAIL_FORMAT, ApiConstants.ERROR_CODE_UPDATE_USER_INVALID_EMAIL_FORMAT);
             return this.responseSender.sendErrorResponse(res);
         }
         if (!this.validator.isValidEmailLength(req.body.email)) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_EMAIL_LENGTH, 1104);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_EMAIL_LENGTH, ApiConstants.ERROR_CODE_UPDATE_USER_INVALID_EMAIL_LENGTH);
 
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!req.body.hasOwnProperty('given_name')) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_GIVEN_NAME_PROPERTY, 1101);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_GIVEN_NAME_PROPERTY, ApiConstants.ERROR_CODE_UPDATE_USER_MISSING_GIVEN_NAME);
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!this.validator.isValidName(req.body.given_name)) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_GIVEN_NAME_FORMAT, 1105);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_GIVEN_NAME_FORMAT, ApiConstants.ERROR_CODE_UPDATE_USER_INVALID_GIVEN_NAME_FORMAT);
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!this.validator.isValidNameLength(req.body.given_name)) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_GIVEN_NAME_LENGTH, 1106);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_GIVEN_NAME_LENGTH, ApiConstants.ERROR_CODE_UPDATE_USER_INVALID_GIVEN_NAME_LENGTH);
 
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!req.body.hasOwnProperty('family_name')) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_FAMILY_NAME_PROPERTY, 1102);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_FAMILY_NAME_PROPERTY, ApiConstants.ERROR_CODE_UPDATE_USER_MISSING_FAMILY_NAME);
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!this.validator.isValidName(req.body.family_name)) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_FAMILY_NAME_FORMAT, 1107);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_FAMILY_NAME_FORMAT, ApiConstants.ERROR_CODE_UPDATE_USER_INVALID_FAMILY_NAME_FORMAT);
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!this.validator.isValidNameLength(req.body.family_name)) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_FAMILY_NAME_LENGTH, 1108);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_FAMILY_NAME_LENGTH, ApiConstants.ERROR_CODE_UPDATE_USER_INVALID_FAMILY_NAME_LENGTH);
 
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!req.params.hasOwnProperty('id')) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_ID_QUERY, 1110);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_ID_QUERY, ApiConstants.ERROR_CODE_UPDATE_USER_INVALID_MISSING_ID_QUERY);
             return this.responseSender.sendErrorResponse(res);
         }
 
@@ -76,7 +76,7 @@ export class SecurityUpdateUserService {
             })
             .catch((err: any) => {
                 console.log(err);
-                this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_EMAIL_ALREADY_EXIST, 1109);
+                this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_EMAIL_ALREADY_EXIST, ApiConstants.ERROR_CODE_UPDATE_USER_INVALID_EMAIL_EXIST);
                 return this.responseSender.sendErrorResponse(res);
             });
     }

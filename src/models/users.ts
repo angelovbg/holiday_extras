@@ -99,14 +99,14 @@ export class Users {
                         client.release();
 
                         if (err) {
-                            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_REQUEST, 2003);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_REQUEST, err.code);
                             return reject(this.responseSender);
                         }
 
                         const result = query.rows[0];
 
                         if (!result) {
-                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, 2004);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, ApiConstants.ERROR_CODE_USER_MODEL_NO_USER_FOUND);
                             return reject(this.responseSender);
                         }
 
@@ -127,7 +127,7 @@ export class Users {
                         client.release();
 
                         if (err) {
-                            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_REQUEST, 2002);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_REQUEST, err.code);
                             return reject(this.responseSender);
                         }
 
@@ -191,7 +191,7 @@ export class Users {
                     });
                 })
                 .catch((err: any) => {
-                    this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, err.name, ApiConstants.MESSAGE_INVALID_REQUEST, 2000);
+                    this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, err.name, ApiConstants.MESSAGE_INVALID_REQUEST, ApiConstants.ERROR_CODE_USER_MODEL_CREATE_USER);
                     return reject(this.responseSender);
                 });
         });
@@ -208,7 +208,7 @@ export class Users {
                         client.release();
 
                         if (result.rowCount === 0) {
-                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, 2005);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, ApiConstants.ERROR_CODE_USER_MODEL_UPDATE_USER);
                             return reject(this.responseSender);
                         }
 
@@ -235,7 +235,7 @@ export class Users {
                         client.release();
 
                         if (result.rowCount === 0) {
-                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, 2001);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, ApiConstants.ERROR_CODE_USER_MODEL_DELETE_USER);
                             return reject(this.responseSender);
                         }
 
