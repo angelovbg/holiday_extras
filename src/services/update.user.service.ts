@@ -10,6 +10,11 @@ export class UpdateUserService implements IExecutable {
         this.responseSender = responseSender;
     }
 
+    /**
+     *
+     * @param req
+     * @param res
+     */
     public execute(req: IRequest, res: IResponse): void {
         const user: IUsers = this.users;
         const userId: number = req.params.id;

@@ -10,6 +10,11 @@ export class GetAllUsersService implements IExecutable {
         this.responseSender = responseSender;
     }
 
+    /**
+     *
+     * @param req
+     * @param res
+     */
     public execute(req: IRequest, res: IResponse): void {
         this.users.getAll()
             .then((users: IUsers[]) => {

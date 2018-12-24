@@ -85,7 +85,12 @@ export class Users implements IUsers {
         return this._table_name;
     }
 
-    public getById(userId: number): Promise<any> {
+    /**
+     *
+     * @param userId
+     * @returns {Promise<IUsers>}
+     */
+    public getById(userId: number): Promise<IUsers> {
         return new Promise((resolve, reject) => {
             this.database.getClient()
                 .then((client) => {
@@ -113,6 +118,12 @@ export class Users implements IUsers {
         });
     }
 
+    /**
+     *
+     * @param email
+     * @param userId
+     * @returns {Promise<T>}
+     */
     public getByEmail(email: string, userId?: number): Promise<any> {
         return new Promise((resolve, reject) => {
             this.database.getClient()
@@ -146,6 +157,10 @@ export class Users implements IUsers {
         });
     }
 
+    /**
+     *
+     * @returns {Promise<T>}
+     */
     public getAll(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.database.getClient()
@@ -168,6 +183,10 @@ export class Users implements IUsers {
         });
     }
 
+    /**
+     *
+     * @returns {Promise<T>}
+     */
     public create(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.database.getClient()
@@ -194,6 +213,11 @@ export class Users implements IUsers {
         });
     }
 
+    /**
+     *
+     * @param userId
+     * @returns {Promise<T>}
+     */
     public update(userId: number): Promise<any> {
         return new Promise((resolve, reject) => {
             this.database.getClient()
@@ -221,6 +245,11 @@ export class Users implements IUsers {
         });
     }
 
+    /**
+     *
+     * @param userId
+     * @returns {Promise<T>}
+     */
     public delete(userId: number): Promise<any> {
         return new Promise((resolve, reject) => {
             this.database.getClient()

@@ -10,6 +10,11 @@ export class CreateUserService implements IExecutable {
         this.responseSender = responseSender;
     }
 
+    /**
+     *
+     * @param req
+     * @param res
+     */
     public execute(req: IRequest, res: IResponse): void {
         const user = this.users;
 

@@ -7,6 +7,12 @@ abstract class BaseRouter {
 
     }
 
+    /**
+     *
+     * @param req
+     * @param res
+     * @returns {Promise<T>}
+     */
     public checkAccessRoute(req: Request, res: Response): Promise<any> {
         return new Promise((resolve, reject) => {
             this.checkRoute(req)
@@ -24,6 +30,11 @@ abstract class BaseRouter {
         });
     }
 
+    /**
+     *
+     * @param req
+     * @returns {Promise<T>}
+     */
     private checkRoute(req: Request): Promise<any> {
         return new Promise((resolve, reject) => {
             const routes = (<any>accessData);
@@ -55,6 +66,11 @@ abstract class BaseRouter {
         });
     }
 
+    /**
+     *
+     * @param url
+     * @returns {string}
+     */
     private removeLastElementFromUrlIfNeeded(url: string): string {
         if (url[url.length - 1] === '/') {
             url = url.substring(0, url.length - 1);
@@ -63,6 +79,11 @@ abstract class BaseRouter {
         return url;
     }
 
+    /**
+     *
+     * @param url
+     * @returns {string}
+     */
     private removeSlicedQueryParametersIfExist(url: string): string {
         const indexOfMark = url.indexOf('?');
         if (indexOfMark > 0) {

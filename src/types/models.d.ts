@@ -5,7 +5,7 @@ declare interface IUsers {
     family_name: string;
     created_at: string;
 
-    getById(userId: number): Promise<any>;
+    getById(userId: number): Promise<IUsers>;
     getByEmail(email: string, userId?: number): Promise<any>;
     getAll(): Promise<any>;
     create(): Promise<any>;

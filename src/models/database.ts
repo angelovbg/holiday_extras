@@ -21,6 +21,11 @@ export class PostgresDb implements IDatabase {
         this.dbEvents();
     }
 
+    /**
+     *
+     * @returns {IDatabase}
+     * @constructor
+     */
     public static Instance(): IDatabase {
         if (!PostgresDb._instance) {
             PostgresDb._instance = new PostgresDb();
@@ -29,6 +34,10 @@ export class PostgresDb implements IDatabase {
         return PostgresDb._instance;
     }
 
+    /**
+     *
+     * @returns {Promise<T>}
+     */
     public getClient(): Promise<any> {
         return new Promise((resolve) => {
             this.pool.connect()
@@ -42,6 +51,9 @@ export class PostgresDb implements IDatabase {
         });
     }
 
+    /**
+     *
+     */
     private dbEvents(): void {
         this.pool.on('connect', () => {
             // console.log('Established new pool connection');

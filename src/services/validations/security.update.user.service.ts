@@ -13,6 +13,11 @@ export class SecurityUpdateUserService implements IExecutable {
         this.validator = validator;
     }
 
+    /**
+     *
+     * @param req
+     * @param res
+     */
     public execute(req: IRequest, res: IResponse): void {
         if (!req.body.hasOwnProperty('email')) {
             this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_EMAIL_PROPERTY, ApiConstants.ERROR_CODE_UPDATE_USER_MISSING_EMAIL);
