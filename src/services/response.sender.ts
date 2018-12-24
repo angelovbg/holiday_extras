@@ -1,12 +1,9 @@
-import { Response } from 'express';
-
-export class ResponseSender {
+export class ResponseSender implements IResponseSender {
     private _name: string;
     private _status: number;
     private _data: any;
     private _code: number;
     private _message: string;
-    private _objectId: number;
 
     public constructor() {
 
@@ -52,28 +49,20 @@ export class ResponseSender {
         this._message = value;
     }
 
-    get objectId(): number {
-        return this._objectId;
-    }
-
-    set objectId(value: number) {
-        this._objectId = value;
-    }
-
-    public setupValidData(status: number, name: string, data: any) {
+    public setupValidData(status: number, name: string, data: any): void {
         this.status = status;
         this.name = name;
         this.data = data;
     }
 
-    public setupErrorData(status: number, name: string, message: string, code: number) {
+    public setupErrorData(status: number, name: string, message: string, code: number): void {
         this.status = status;
         this.name = name;
         this.message = message;
         this.code = code;
     }
 
-    public sendValidResponse(res: Response): void {
+    public sendValidResponse(res: IResponse): void {
         if (this.data) {
             res.status(this.status).send({
                 'name': this.name,
@@ -88,7 +77,7 @@ export class ResponseSender {
         }
     }
 
-    public sendErrorResponse(res: Response): void {
+    public sendErrorResponse(res: IResponse): void {
         res.status(this.status).send({
             'name': this.name,
             'message': this.message,

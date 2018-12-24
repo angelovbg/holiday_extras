@@ -59,7 +59,7 @@ export class ApiConstants {
     public static readonly ERROR_CODE_UPDATE_USER_INVALID_MISSING_ID_QUERY: number = 1110;
     public static readonly ERROR_CODE_GET_USER_INVALID_MISSING_ID_QUERY: number = 1200;
     public static readonly ERROR_CODE_DELETE_USER_INVALID_MISSING_ID_QUERY: number = 1300;
-    public static readonly ERROR_CODE_USER_MODEL_NO_USER_FOUND : number = 2000;
+    public static readonly ERROR_CODE_USER_MODEL_NO_USER_FOUND: number = 2000;
     public static readonly ERROR_CODE_USER_MODEL_CREATE_USER: number = 2001;
     public static readonly ERROR_CODE_USER_MODEL_UPDATE_USER: number = 2002;
     public static readonly ERROR_CODE_USER_MODEL_DELETE_USER: number = 2003;

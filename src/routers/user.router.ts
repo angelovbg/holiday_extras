@@ -1,17 +1,16 @@
 import { Request, Response, Router } from 'express';
-import { SecurityCreateUserService, GetAllUsersService, SecurityGetUserService, SecurityUpdateUserService, SecurityDeleteUserService } from '../services';
 import BaseRouter from './base.router';
 
 export class UserRouter extends BaseRouter {
     private _router: Router;
-    private securityCreateUserService: SecurityCreateUserService;
-    private getAllUsersService: GetAllUsersService;
-    private securityGetUserService: SecurityGetUserService;
-    private securityUpdateUserService: SecurityUpdateUserService;
-    private securityDeleteUserService: SecurityDeleteUserService;
+    private securityCreateUserService: IExecutable;
+    private getAllUsersService: IExecutable;
+    private securityGetUserService: IExecutable;
+    private securityUpdateUserService: IExecutable;
+    private securityDeleteUserService: IExecutable;
 
-    public constructor(securityCreateUserService: SecurityCreateUserService, getAllUsersService: GetAllUsersService, securityGetUserService: SecurityGetUserService,
-                       securityUpdateUserService: SecurityUpdateUserService, securityDeleteUserService: SecurityDeleteUserService) {
+    public constructor(securityCreateUserService: IExecutable, getAllUsersService: IExecutable, securityGetUserService: IExecutable,
+                       securityUpdateUserService: IExecutable, securityDeleteUserService: IExecutable) {
         super();
 
         this._router = Router();

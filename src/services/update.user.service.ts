@@ -1,19 +1,17 @@
-import { Request, Response } from 'express';
-import { Users } from '../models';
 import { ApiConstants } from '../constants';
 import { ResponseSender } from './';
 
-export class UpdateUserService {
-    private users: Users;
-    private responseSender: ResponseSender;
+export class UpdateUserService implements IExecutable {
+    private users: IUsers;
+    private responseSender: IResponseSender;
 
-    public constructor(users: Users, responseSender: ResponseSender) {
+    public constructor(users: IUsers, responseSender: IResponseSender) {
         this.users = users;
         this.responseSender = responseSender;
     }
 
-    public execute(req: Request, res: Response): void {
-        const user: Users = this.users;
+    public execute(req: IRequest, res: IResponse): void {
+        const user: IUsers = this.users;
         const userId: number = req.params.id;
 
         user.email = req.body.email;

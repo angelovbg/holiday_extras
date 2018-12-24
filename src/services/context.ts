@@ -5,7 +5,7 @@ import { PostgresDb, Users } from '../models';
 import { Validator } from '../validators';
 
 export class Context {
-    private _database: PostgresDb;
+    private _database: IDatabase;
 
     public constructor() {
         this.database = PostgresDb.Instance();
@@ -17,57 +17,57 @@ export class Context {
     }
 
     // services
-    get createUserService(): CreateUserService {
+    get createUserService(): IExecutable {
         return new CreateUserService(this.users, this.responseSender);
     }
 
-    get getAllUsersService(): GetAllUsersService {
+    get getAllUsersService(): IExecutable {
         return new GetAllUsersService(this.users, this.responseSender);
     }
 
-    get getUserService(): GetUserService {
+    get getUserService(): IExecutable {
         return new GetUserService(this.users, this.responseSender);
     }
 
-    get updateUserService(): UpdateUserService {
+    get updateUserService(): IExecutable {
         return new UpdateUserService(this.users, this.responseSender);
     }
 
-    get deleteUserService(): DeleteUserService {
+    get deleteUserService(): IExecutable {
         return new DeleteUserService(this.users, this.responseSender);
     }
 
-    get responseSender(): ResponseSender {
+    get responseSender(): IResponseSender {
         return new ResponseSender();
     }
 
     // security service
-    get securityCreateUserService(): SecurityCreateUserService {
+    get securityCreateUserService(): IExecutable {
         return new SecurityCreateUserService(this.users, this.responseSender, this.createUserService, this.validator);
     }
 
-    get securityUpdateUserService(): SecurityUpdateUserService {
+    get securityUpdateUserService(): IExecutable {
         return new SecurityUpdateUserService(this.users, this.responseSender, this.updateUserService, this.validator);
     }
 
-    get securityDeleteUserService(): SecurityDeleteUserService {
+    get securityDeleteUserService(): IExecutable {
         return new SecurityDeleteUserService(this.deleteUserService, this.responseSender);
     }
 
-    get securityGetUserService(): SecurityGetUserService {
+    get securityGetUserService(): IExecutable {
         return new SecurityGetUserService(this.getUserService, this.responseSender);
     }
 
     // models
-    get users(): Users {
+    get users(): IUsers {
         return new Users(this.database, this.validator, this.responseSender);
     }
 
-    get database(): PostgresDb {
+    get database(): IDatabase {
         return this._database;
     }
 
-    set database(value: PostgresDb) {
+    set database(value: IDatabase) {
         this._database = value;
     }
 

@@ -3,9 +3,9 @@ import { Client, Pool } from 'pg';
 
 dotenv.config({path: '.env'});
 
-export class PostgresDb {
+export class PostgresDb implements IDatabase {
     private pool: Pool;
-    private static _instance: PostgresDb;
+    private static _instance: IDatabase;
 
     constructor() {
         this.pool = new Pool({
@@ -21,7 +21,7 @@ export class PostgresDb {
         this.dbEvents();
     }
 
-    public static Instance() {
+    public static Instance(): IDatabase {
         if (!PostgresDb._instance) {
             PostgresDb._instance = new PostgresDb();
         }
@@ -42,7 +42,7 @@ export class PostgresDb {
         });
     }
 
-    private dbEvents() {
+    private dbEvents(): void {
         this.pool.on('connect', () => {
             // console.log('Established new pool connection');
         });

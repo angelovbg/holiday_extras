@@ -1,20 +1,17 @@
 import { ApiConstants } from '../constants';
-import { ResponseSender } from '../services';
-import { PostgresDb } from './';
-import { Validator } from '../validators';
 
-export class Users {
+export class Users implements IUsers {
     private _id: number;
     private _email: string;
     private _given_name: string;
     private _family_name: string;
     private _created_at: string;
     private _table_name: string = 'users';
-    private database: PostgresDb;
-    private responseSender: ResponseSender;
-    private validator: Validator;
+    private database: IDatabase;
+    private responseSender: IResponseSender;
+    private validator: IValidator;
 
-    public constructor(database: PostgresDb, validator: Validator, responseSender: ResponseSender) {
+    public constructor(database: IDatabase, validator: IValidator, responseSender: IResponseSender) {
         this.database = database;
         this.responseSender = responseSender;
         this.validator = validator;

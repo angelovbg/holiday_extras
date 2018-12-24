@@ -1,23 +1,19 @@
-import { Request, Response } from 'express';
 import { ApiConstants } from '../../constants';
-import { UpdateUserService, ResponseSender } from '../';
-import { Validator } from '../../validators';
-import { Users } from '../../models';
 
-export class SecurityUpdateUserService {
-    private users: Users;
-    private updateUserService: UpdateUserService;
-    private responseSender: ResponseSender;
-    private validator: Validator;
+export class SecurityUpdateUserService implements IExecutable {
+    private users: IUsers;
+    private updateUserService: IExecutable;
+    private responseSender: IResponseSender;
+    private validator: IValidator;
 
-    public constructor(users: Users, responseSender: ResponseSender, updateUserService: UpdateUserService, validator: Validator) {
+    public constructor(users: IUsers, responseSender: IResponseSender, updateUserService: IExecutable, validator: IValidator) {
         this.users = users;
         this.responseSender = responseSender;
         this.updateUserService = updateUserService;
         this.validator = validator;
     }
 
-    public execute(req: Request, res: Response): void {
+    public execute(req: IRequest, res: IResponse): void {
         if (!req.body.hasOwnProperty('email')) {
             this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_EMAIL_PROPERTY, ApiConstants.ERROR_CODE_UPDATE_USER_MISSING_EMAIL);
             return this.responseSender.sendErrorResponse(res);

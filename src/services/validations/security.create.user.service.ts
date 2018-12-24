@@ -1,23 +1,19 @@
-import { Request, Response } from 'express';
 import { ApiConstants } from '../../constants';
-import { CreateUserService, ResponseSender } from '../';
-import { Validator } from '../../validators';
-import { Users } from '../../models';
 
-export class SecurityCreateUserService {
-    private users: Users;
-    private createUserService: CreateUserService;
-    private responseSender: ResponseSender;
-    private validator: Validator;
+export class SecurityCreateUserService implements IExecutable {
+    private users: IUsers;
+    private createUserService: IExecutable;
+    private responseSender: IResponseSender;
+    private validator: IValidator;
 
-    public constructor(users: Users, responseSender: ResponseSender, createUserService: CreateUserService, validator: Validator) {
+    public constructor(users: IUsers, responseSender: IResponseSender, createUserService: IExecutable, validator: IValidator) {
         this.users = users;
         this.responseSender = responseSender;
         this.createUserService = createUserService;
         this.validator = validator;
     }
 
-    public execute(req: Request, res: Response): void {
+    public execute(req: IRequest, res: IResponse): void {
         if (!req.body.hasOwnProperty('email')) {
             this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_EMAIL_PROPERTY, ApiConstants.ERROR_CODE_CREATE_USER_MISSING_EMAIL);
             return this.responseSender.sendErrorResponse(res);
