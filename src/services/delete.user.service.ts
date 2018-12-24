@@ -15,7 +15,7 @@ export class DeleteUserService implements IExecutable {
 
         this.users.delete(userId)
             .then(() => {
-                this.responseSender.setupValidData(ApiConstants.STATUS_NO_CONTENT, ApiConstants.MESSAGE_NO_CONTENT, '');
+                this.responseSender.setupValidData(ApiConstants.STATUS_OK, ApiConstants.MESSAGE_OK, '');
                 this.responseSender.sendValidResponse(res);
             })
             .catch((err: any) => {
