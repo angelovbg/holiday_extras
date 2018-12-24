@@ -1,19 +1,19 @@
 export class Validator {
-    public readonly MINIMUM_EMAIL_LENGTH = 4;
-    public readonly MAXIMUM_EMAIL_LENGTH = 255;
-    public readonly MINIMUM_NAME_LENGTH = 2;
-    public readonly MAXIMUM_NAME_LENGTH = 255;
+    public static readonly MINIMUM_EMAIL_LENGTH = 4;
+    public static readonly MAXIMUM_EMAIL_LENGTH = 255;
+    public static readonly MINIMUM_NAME_LENGTH = 2;
+    public static readonly MAXIMUM_NAME_LENGTH = 255;
 
     public constructor() {
 
     }
 
     public isValidEmailLength(value: string) {
-        return (value && value.length >= this.MINIMUM_EMAIL_LENGTH && value.length <= this.MAXIMUM_EMAIL_LENGTH);
+        return (value && value.length >= Validator.MINIMUM_EMAIL_LENGTH && value.length <= Validator.MAXIMUM_EMAIL_LENGTH);
     }
 
     public isValidNameLength(value: string) {
-        return (value && value.length >= this.MINIMUM_NAME_LENGTH && value.length <= this.MAXIMUM_NAME_LENGTH);
+        return (value && value.length >= Validator.MINIMUM_NAME_LENGTH && value.length <= Validator.MAXIMUM_NAME_LENGTH);
     }
 
     public isValidName(value: string) {

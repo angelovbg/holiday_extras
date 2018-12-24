@@ -99,14 +99,14 @@ export class Users {
                         client.release();
 
                         if (err) {
-                            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Error', ApiConstants.MESSAGE_INVALID_REQUEST, 2003);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_REQUEST, 2003);
                             return reject(this.responseSender);
                         }
 
                         const result = query.rows[0];
 
                         if (!result) {
-                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, 'Error', ApiConstants.MESSAGE_OBJECT_NOT_FOUND, 2004);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, 2004);
                             return reject(this.responseSender);
                         }
 
@@ -127,7 +127,7 @@ export class Users {
                         client.release();
 
                         if (err) {
-                            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Error', ApiConstants.MESSAGE_INVALID_REQUEST, 2002);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_REQUEST, 2002);
                             return reject(this.responseSender);
                         }
 
@@ -208,7 +208,7 @@ export class Users {
                         client.release();
 
                         if (result.rowCount === 0) {
-                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, 2003);
+                            this.responseSender.setupErrorData(ApiConstants.STATUS_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, ApiConstants.MESSAGE_OBJECT_NOT_FOUND, 2005);
                             return reject(this.responseSender);
                         }
 

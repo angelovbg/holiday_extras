@@ -13,7 +13,7 @@ export class SecurityDeleteUserService {
 
     public execute(req: Request, res: Response): void {
         if (!req.params.hasOwnProperty('id')) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'Missing id query.', 1200);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_ID_QUERY, 1200);
             return this.responseSender.sendErrorResponse(res);
         }
 

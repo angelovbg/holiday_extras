@@ -19,51 +19,48 @@ export class SecurityCreateUserService {
 
     public execute(req: Request, res: Response): void {
         if (!req.body.hasOwnProperty('email')) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'Missing email property.', 1000);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_EMAIL_PROPERTY, 1000);
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!this.validator.isValidEmail(req.body.email)) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'Incorrect email format.', 1003);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_EMAIL_FORMAT, 1003);
             return this.responseSender.sendErrorResponse(res);
         }
         if (!this.validator.isValidEmailLength(req.body.email)) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'Email length must be greater then ' +
-                this.validator.MINIMUM_EMAIL_LENGTH + ' symbols and less then ' + this.validator.MAXIMUM_EMAIL_LENGTH + ' symbols.', 1004);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_EMAIL_LENGTH, 1004);
 
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!req.body.hasOwnProperty('given_name')) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'Missing given_name property.', 1001);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_GIVEN_NAME_PROPERTY, 1001);
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!this.validator.isValidName(req.body.given_name)) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'Incorrect given_name format.', 1005);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_GIVEN_NAME_FORMAT, 1005);
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!this.validator.isValidNameLength(req.body.given_name)) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'given_name length must be greater then ' +
-                this.validator.MINIMUM_NAME_LENGTH + ' symbols and less then ' + this.validator.MAXIMUM_NAME_LENGTH + ' symbols.', 1006);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_GIVEN_NAME_LENGTH, 1006);
 
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!req.body.hasOwnProperty('family_name')) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'Missing family_name property.', 1002);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_MISSING_FAMILY_NAME_PROPERTY, 1002);
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!this.validator.isValidName(req.body.family_name)) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'Incorrect family_name format.', 1007);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_FAMILY_NAME_FORMAT, 1007);
             return this.responseSender.sendErrorResponse(res);
         }
 
         if (!this.validator.isValidNameLength(req.body.family_name)) {
-            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'family_name length must be greater then ' +
-                this.validator.MINIMUM_NAME_LENGTH + ' symbols and less then ' + this.validator.MAXIMUM_NAME_LENGTH + ' symbols.', 1008);
+            this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_INVALID_FAMILY_NAME_LENGTH, 1008);
 
             return this.responseSender.sendErrorResponse(res);
         }
@@ -74,7 +71,7 @@ export class SecurityCreateUserService {
             })
             .catch((err: any) => {
                 console.log(err);
-                this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, 'Invalid request', 'Email already exist.', 1009);
+                this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_EMAIL_ALREADY_EXIST, 1009);
                 return this.responseSender.sendErrorResponse(res);
             });
     }

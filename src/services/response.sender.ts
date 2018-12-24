@@ -1,5 +1,4 @@
 import { Response } from 'express';
-import { ApiConstants } from '../constants';
 
 export class ResponseSender {
     private _name: string;
@@ -95,15 +94,6 @@ export class ResponseSender {
             'message': this.message,
             'status': this.status,
             'code': this.code,
-        });
-    }
-
-    public sendDefaultErrorResponse(res: Response, message: string): void {
-        res.status(ApiConstants.STATUS_INVALID_REQUEST).send({
-            'name': 'Error',
-            'message': message,
-            'status': ApiConstants.STATUS_INVALID_REQUEST,
-            'code': 1636,
         });
     }
 }
