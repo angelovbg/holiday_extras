@@ -4,3 +4,5 @@ declare interface IValidator {
     isValidName(value: string): boolean;
     isValidEmail(value: string): boolean;
 }
+
+export { IValidator };

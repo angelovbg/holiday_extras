@@ -1,4 +1,5 @@
 import { ApiConstants } from '../constants';
+import { IValidator } from '../types/validators';
 
 export class Users implements IUsers {
     private _id: number;

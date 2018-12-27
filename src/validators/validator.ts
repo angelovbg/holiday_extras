@@ -1,5 +1,7 @@
+import { IValidator } from '../types/validators';
+
 export class Validator implements IValidator {
-    public static readonly MINIMUM_EMAIL_LENGTH: number = 4;
+    public static readonly MINIMUM_EMAIL_LENGTH: number = 6;
     public static readonly MAXIMUM_EMAIL_LENGTH: number = 255;
     public static readonly MINIMUM_NAME_LENGTH: number = 2;
     public static readonly MAXIMUM_NAME_LENGTH: number = 255;
