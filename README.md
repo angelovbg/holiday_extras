@@ -26,6 +26,8 @@ psql -U postgres -c "CREATE ROLE test_user PASSWORD 'password' LOGIN NOSUPERUSER
 
 psql -U postgres -c "CREATE DATABASE \"holiday_extras\" WITH OWNER = test_user ENCODING = 'UTF8' CONNECTION LIMIT = -1;"
 
+psql -U postgres -c "CREATE DATABASE \"holiday_extras_test\" WITH OWNER = test_user ENCODING = 'UTF8' CONNECTION LIMIT = -1;"
+
 npm run migrate
 
 **User API accept Content-Type form urlEncoded or application/json**
@@ -55,7 +57,16 @@ update user by id
 *body = { email: "", given_name: "", family_name: "" }*
 
 ### Testing:
-npm start
+
+npm run migrate:test
+
+*For windows*
+
+npm run start:test:win
+
+*For mac/linux*
+
+npm run start:test:linux
 
 *In other terminal run:*
 
