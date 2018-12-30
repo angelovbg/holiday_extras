@@ -1,7 +1,7 @@
 ## Holiday Extras
 **CRUD user API**
 
-###Installation instructions
+### Installation instructions
 npm install
 
 install --global typescript
@@ -54,7 +54,7 @@ update user by id
 
 *body = { email: "", given_name: "", family_name: "" }*
 
-###Testing:
+### Testing:
 npm start
 
 *In other terminal run:*
