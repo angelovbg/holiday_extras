@@ -72,7 +72,6 @@ export class SecurityCreateUserService implements IExecutable {
                 this.createUserService.execute(req, res);
             })
             .catch((err: any) => {
-                console.log(err);
                 this.responseSender.setupErrorData(ApiConstants.STATUS_INVALID_REQUEST, ApiConstants.NAME_INVALID_REQUEST, ApiConstants.MESSAGE_EMAIL_ALREADY_EXIST, ApiConstants.ERROR_CODE_CREATE_USER_INVALID_EMAIL_EXIST);
                 return this.responseSender.sendErrorResponse(res);
             });
