@@ -41,3 +41,9 @@ DELETE - http://localhost:3000/3
 update user by id
 PUT - http://localhost:3000/
 headers body = { email: "", given_name: "", family_name: "" }
+
+Testing:
+npm start
+
+In other terminal run:
+npm run test
