@@ -6,5 +6,13 @@
     "host": "localhost",
     "database": "holiday_extras",
     "schema": "public"
+  },
+  "test": {
+    "driver": "pg",
+    "user": "test_user",
+    "password": "password",
+    "host": "localhost",
+    "database": "holiday_extras_test",
+    "schema": "public"
   }
 }

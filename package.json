@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build-ts && npm run tslint && node dist/index.js",
+    "start:test:win": "npm run build-ts && npm run tslint && set DB_DATABASE=holiday_extras_test&& node dist/index.js",
+    "start:test:linux": "npm run build-ts && npm run tslint && DB_DATABASE=holiday_extras_test node dist/index.js",
     "build-ts": "tsc",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "migrate": "db-migrate up -e dev",
+    "migrate:test": "db-migrate up -e test",
     "test": "mocha -r ts-node/register src/tests/*.spec.ts"
   },
   "repository": {
