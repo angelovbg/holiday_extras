@@ -11,9 +11,9 @@ export class GetAllUsersService implements IExecutable {
     }
 
     /**
-     *
-     * @param req
-     * @param res
+     * Get all users from db.
+     * @param req - Request data.
+     * @param res - Response data.
      */
     public execute(req: IRequest, res: IResponse): void {
         this.users.getAll()

@@ -11,9 +11,9 @@ export class DeleteUserService implements IExecutable {
     }
 
     /**
-     *
-     * @param req
-     * @param res
+     * Delete user by id.
+     * @param req - Request data.
+     * @param res - Response data.
      */
     public execute(req: IRequest, res: IResponse): void {
         const userId = req.params.id;

@@ -50,10 +50,10 @@ export class ResponseSender implements IResponseSender {
     }
 
     /**
-     *
-     * @param status
-     * @param name
-     * @param data
+     * Setup valid response data.
+     * @param status - Response status code.
+     * @param name - Response name.
+     * @param data - Response data.
      */
     public setupValidData(status: number, name: string, data: any): void {
         this.status = status;
@@ -62,11 +62,11 @@ export class ResponseSender implements IResponseSender {
     }
 
     /**
-     *
-     * @param status
-     * @param name
-     * @param message
-     * @param code
+     * Setup error response data.
+     * @param status - Status core.
+     * @param name - Response name.
+     * @param message - Response message.
+     * @param code - Response status code.
      */
     public setupErrorData(status: number, name: string, message: string, code: number): void {
         this.status = status;
@@ -76,8 +76,8 @@ export class ResponseSender implements IResponseSender {
     }
 
     /**
-     *
-     * @param res
+     * Send valid response data to client.
+     * @param res - Response data.
      */
     public sendValidResponse(res: IResponse): void {
         if (this.data) {
@@ -95,8 +95,8 @@ export class ResponseSender implements IResponseSender {
     }
 
     /**
-     *
-     * @param res
+     * Send error response data to client.
+     * @param res - Response data.
      */
     public sendErrorResponse(res: IResponse): void {
         res.status(this.status).send({

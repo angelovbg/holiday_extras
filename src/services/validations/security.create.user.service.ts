@@ -15,9 +15,9 @@ export class SecurityCreateUserService implements IExecutable {
     }
 
     /**
-     *
-     * @param req
-     * @param res
+     * Validate create user request data.
+     * @param req - Request data.
+     * @param res - Response data.
      */
     public execute(req: IRequest, res: IResponse): void {
         if (!req.body.hasOwnProperty('email')) {

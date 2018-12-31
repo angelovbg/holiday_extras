@@ -11,9 +11,9 @@ export class UpdateUserService implements IExecutable {
     }
 
     /**
-     *
-     * @param req
-     * @param res
+     * Update user data by id.
+     * @param req - Request data.
+     * @param res - Response data.
      */
     public execute(req: IRequest, res: IResponse): void {
         const user: IUsers = this.users;

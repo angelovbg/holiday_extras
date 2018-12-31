@@ -87,8 +87,8 @@ export class Users implements IUsers {
     }
 
     /**
-     *
-     * @param userId
+     * Get user by id from db.
+     * @param userId - user id
      * @returns {Promise<IUsers>}
      */
     public getById(userId: number): Promise<IUsers> {
@@ -120,9 +120,9 @@ export class Users implements IUsers {
     }
 
     /**
-     *
-     * @param email
-     * @param userId
+     * Check is user exist in db by email. Resolve is not exist. Reject if email exist.
+     * @param email - user email
+     * @param userId - user id
      * @returns {Promise<T>}
      */
     public getByEmail(email: string, userId?: number): Promise<any> {
@@ -159,7 +159,7 @@ export class Users implements IUsers {
     }
 
     /**
-     *
+     * Get all users from db.
      * @returns {Promise<T>}
      */
     public getAll(): Promise<any> {
@@ -185,7 +185,7 @@ export class Users implements IUsers {
     }
 
     /**
-     *
+     * Create user to db.
      * @returns {Promise<T>}
      */
     public create(): Promise<any> {
@@ -215,8 +215,8 @@ export class Users implements IUsers {
     }
 
     /**
-     *
-     * @param userId
+     * Update user by id.
+     * @param userId - user id.
      * @returns {Promise<T>}
      */
     public update(userId: number): Promise<any> {
@@ -247,7 +247,7 @@ export class Users implements IUsers {
     }
 
     /**
-     *
+     * Delete user by id from db.
      * @param userId
      * @returns {Promise<T>}
      */

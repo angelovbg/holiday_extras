@@ -8,9 +8,9 @@ abstract class BaseRouter {
     }
 
     /**
-     *
-     * @param req
-     * @param res
+     * Validate is route exist.
+     * @param req - Request data.
+     * @param res - Response data.
      * @returns {Promise<T>}
      */
     public checkAccessRoute(req: Request, res: Response): Promise<any> {
@@ -31,8 +31,8 @@ abstract class BaseRouter {
     }
 
     /**
-     *
-     * @param req
+     * Compare routes.
+     * @param req - Request data.
      * @returns {Promise<T>}
      */
     private checkRoute(req: Request): Promise<any> {
@@ -67,8 +67,8 @@ abstract class BaseRouter {
     }
 
     /**
-     *
-     * @param url
+     * Remove last symbol from url if needed.
+     * @param url - client url.
      * @returns {string}
      */
     private removeLastElementFromUrlIfNeeded(url: string): string {
@@ -80,8 +80,8 @@ abstract class BaseRouter {
     }
 
     /**
-     *
-     * @param url
+     * Remove queries of url if needed.
+     * @param url - client url
      * @returns {string}
      */
     private removeSlicedQueryParametersIfExist(url: string): string {

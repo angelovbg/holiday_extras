@@ -11,8 +11,8 @@ export class Validator implements IValidator {
     }
 
     /**
-     *
-     * @param value
+     * Validate is user email length correct.
+     * @param value - user email.
      * @returns {boolean}
      */
     public isValidEmailLength(value: string): boolean {
@@ -20,8 +20,8 @@ export class Validator implements IValidator {
     }
 
     /**
-     *
-     * @param value
+     * Validate is user name length correct.
+     * @param value - user name
      * @returns {boolean}
      */
     public isValidNameLength(value: string): boolean {
@@ -29,8 +29,8 @@ export class Validator implements IValidator {
     }
 
     /**
-     *
-     * @param value
+     * Validate is user name all symbols allowed.
+     * @param value - user name
      * @returns {boolean}
      */
     public isValidName(value: string): boolean {
@@ -38,8 +38,8 @@ export class Validator implements IValidator {
     }
 
     /**
-     *
-     * @param value
+     * Validate is user email valid.
+     * @param value - user email
      * @returns {boolean}
      */
     public isValidEmail(value: string): boolean {

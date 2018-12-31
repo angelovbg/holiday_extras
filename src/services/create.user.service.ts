@@ -11,9 +11,9 @@ export class CreateUserService implements IExecutable {
     }
 
     /**
-     *
-     * @param req
-     * @param res
+     * Create user by given params.
+     * @param req - Request data.
+     * @param res - Response data.
      */
     public execute(req: IRequest, res: IResponse): void {
         const user = this.users;
