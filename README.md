@@ -74,6 +74,6 @@ npm run start:test:linux
 
 npm run test:win
 
-*OR for max/linux*
+*OR for mac/linux*
  
 npm run test:linux
