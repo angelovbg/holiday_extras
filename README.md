@@ -18,7 +18,7 @@ install --global typescript
 
 *run bash command for db and migrations with postgres password for example (bash setup-db.sh password)*
 
-bash setup-db.sh postgres_password
+bash setup-db.sh your_postgres_password
 
 *OR run from command line*
 
@@ -58,7 +58,7 @@ update user by id
 
 ### Testing:
 
-npm run migrate:test
+bash test-db.sh *your_postgres_password*
 
 *For windows*
 
