@@ -7,7 +7,7 @@ const VALID_GIVEN_NAME = 'UserGivenName';
 const ONE_LETTER_NAME = 'U';
 const VALID_FAMILY_NAME = 'UserFamilyName';
 const THREE_HUNDRED_LETTERS_NAME = 'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu';
-const VALID_EMAIL = 'test_user@aaaaa.com';
+const VALID_EMAIL = 'test_user@bbbb.com';
 const INVALID_EMAIL_LENGTH = 'a@a.c';
 
 describe('/PUT /users/:id' , () => {
@@ -34,7 +34,7 @@ describe('/PUT /users/:id' , () => {
                 given_name: VALID_GIVEN_NAME,
                 family_name: VALID_FAMILY_NAME
             };
-            request.put({url: baseUrl + '/users/2', body: body, json: true }, (err: any, res: any) => {
+            request.put({url: baseUrl + '/users/1', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
 
                 expect(responseBody.name).to.equal(ApiConstants.NAME_INVALID_REQUEST);

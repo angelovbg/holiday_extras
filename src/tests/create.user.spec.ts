@@ -8,6 +8,8 @@ const ONE_LETTER_NAME = 'U';
 const VALID_FAMILY_NAME = 'UserFamilyName';
 const THREE_HUNDRED_LETTERS_NAME = 'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu';
 const VALID_EMAIL = 'test_user@aaaaa.com';
+const VALID_EMAIL_SECOND = 'test_user2@aaaaa.com';
+const VALID_EMAIL_THIRD = 'test_user3@aaaaa.com';
 const INVALID_EMAIL_LENGTH = 'a@a.c';
 
 describe('/POST /users/' , () => {
@@ -15,6 +17,38 @@ describe('/POST /users/' , () => {
         it('Valid request. Return 201', (done) => {
             const body: any = {
                 email: VALID_EMAIL,
+                given_name: VALID_GIVEN_NAME,
+                family_name: VALID_FAMILY_NAME
+            };
+            request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
+                const responseBody = res.body;
+
+                expect(responseBody.name).to.equal(ApiConstants.MESSAGE_CREATED);
+                expect(res.statusCode).to.equal(ApiConstants.STATUS_CREATED);
+
+                done();
+            });
+        });
+
+        it('Valid request 2. Return 201', (done) => {
+            const body: any = {
+                email: VALID_EMAIL_SECOND,
+                given_name: VALID_GIVEN_NAME,
+                family_name: VALID_FAMILY_NAME
+            };
+            request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
+                const responseBody = res.body;
+
+                expect(responseBody.name).to.equal(ApiConstants.MESSAGE_CREATED);
+                expect(res.statusCode).to.equal(ApiConstants.STATUS_CREATED);
+
+                done();
+            });
+        });
+
+        it('Valid request 3. Return 201', (done) => {
+            const body: any = {
+                email: VALID_EMAIL_THIRD,
                 given_name: VALID_GIVEN_NAME,
                 family_name: VALID_FAMILY_NAME
             };

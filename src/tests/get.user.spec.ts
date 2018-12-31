@@ -23,7 +23,7 @@ describe('/GET Get user by id /users/:id', () => {
             const responseBody = JSON.parse(res.body);
 
             expect(res.statusCode).to.equal(ApiConstants.STATUS_OK);
-            expect(responseBody.data.id).to.equal(3);
+            expect(responseBody.data.id).to.equal(1);
 
             done();
         });
