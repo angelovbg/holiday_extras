@@ -70,4 +70,10 @@ npm run start:test:linux
 
 *In other terminal run:*
 
-npm run test
+*For windows*
+
+npm run test:win
+
+*OR for max/linux*
+ 
+npm run test:linux

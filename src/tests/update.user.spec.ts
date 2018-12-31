@@ -1,22 +1,18 @@
 import { expect } from 'chai';
 import * as request from 'request';
 import { ApiConstants } from '../constants';
+import { TestData } from './test.data';
 
-const baseUrl = 'http://localhost:3000';
-const VALID_GIVEN_NAME = 'UserGivenName';
-const ONE_LETTER_NAME = 'U';
-const VALID_FAMILY_NAME = 'UserFamilyName';
-const THREE_HUNDRED_LETTERS_NAME = 'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu';
-const VALID_EMAIL = 'test_user@bbbb.com';
-const INVALID_EMAIL_LENGTH = 'a@a.c';
+const testData = new TestData();
+const baseUrl = testData.url;
 
 describe('/PUT /users/:id' , () => {
     describe('Update user.' , () => {
         it('Valid request. Return 200', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: VALID_GIVEN_NAME,
-                family_name: VALID_FAMILY_NAME
+                email: TestData.VALID_EMAIL_B,
+                given_name: TestData.VALID_GIVEN_NAME,
+                family_name: TestData.VALID_FAMILY_NAME
             };
             request.put({url: baseUrl + '/users/3', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -30,9 +26,9 @@ describe('/PUT /users/:id' , () => {
 
         it('Invalid request. Existing email. Return 400', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: VALID_GIVEN_NAME,
-                family_name: VALID_FAMILY_NAME
+                email: TestData.VALID_EMAIL_B,
+                given_name: TestData.VALID_GIVEN_NAME,
+                family_name: TestData.VALID_FAMILY_NAME
             };
             request.put({url: baseUrl + '/users/1', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -47,9 +43,9 @@ describe('/PUT /users/:id' , () => {
 
         it('Invalid request. Incorrect email. Return 400', (done) => {
             const body: any = {
-                email: INVALID_EMAIL_LENGTH,
-                given_name: VALID_GIVEN_NAME,
-                family_name: VALID_FAMILY_NAME
+                email: TestData.INVALID_EMAIL_LENGTH,
+                given_name: TestData.VALID_GIVEN_NAME,
+                family_name: TestData.VALID_FAMILY_NAME
             };
             request.put({url: baseUrl + '/users/3', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -76,7 +72,7 @@ describe('/PUT /users/:id' , () => {
         });
 
         it('Invalid request. Missing given_name property. Return 400', (done) => {
-            const body: any = { email: VALID_EMAIL };
+            const body: any = { email: TestData.VALID_EMAIL };
             request.put({url: baseUrl + '/users/1', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
 
@@ -89,8 +85,8 @@ describe('/PUT /users/:id' , () => {
 
         it('Invalid request. Missing family_name property. Return 400', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: VALID_GIVEN_NAME
+                email: TestData.VALID_EMAIL,
+                given_name: TestData.VALID_GIVEN_NAME
             };
             request.put({url: baseUrl + '/users/1', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -114,9 +110,9 @@ describe('/PUT /users/:id' , () => {
 
         it('Invalid request. Given name with incorrect length. Return 400', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: ONE_LETTER_NAME,
-                family_name: VALID_FAMILY_NAME
+                email: TestData.VALID_EMAIL,
+                given_name: TestData.ONE_LETTER_NAME,
+                family_name: TestData.VALID_FAMILY_NAME
             };
             request.put({url: baseUrl + '/users/1', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -131,9 +127,9 @@ describe('/PUT /users/:id' , () => {
 
         it('Invalid request. Given name with incorrect length. Return 400', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: THREE_HUNDRED_LETTERS_NAME,
-                family_name: VALID_FAMILY_NAME
+                email: TestData.VALID_EMAIL,
+                given_name: TestData.THREE_HUNDRED_LETTERS_NAME,
+                family_name: TestData.VALID_FAMILY_NAME
             };
             request.put({url: baseUrl + '/users/1', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -148,9 +144,9 @@ describe('/PUT /users/:id' , () => {
 
         it('Invalid request. Family name with incorrect length. Return 400', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: VALID_GIVEN_NAME,
-                family_name: ONE_LETTER_NAME
+                email: TestData.VALID_EMAIL,
+                given_name: TestData.VALID_GIVEN_NAME,
+                family_name: TestData.ONE_LETTER_NAME
             };
             request.put({url: baseUrl + '/users/1', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -165,9 +161,9 @@ describe('/PUT /users/:id' , () => {
 
         it('Invalid request. Family name with incorrect length. Return 400', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: VALID_GIVEN_NAME,
-                family_name: THREE_HUNDRED_LETTERS_NAME
+                email: TestData.VALID_EMAIL,
+                given_name: TestData.VALID_GIVEN_NAME,
+                family_name: TestData.THREE_HUNDRED_LETTERS_NAME
             };
             request.put({url: baseUrl + '/users/1', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;

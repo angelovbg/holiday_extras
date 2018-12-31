@@ -1,24 +1,18 @@
 import { expect } from 'chai';
 import * as request from 'request';
 import { ApiConstants } from '../constants';
+import { TestData } from './test.data';
 
-const baseUrl = 'http://localhost:3000';
-const VALID_GIVEN_NAME = 'UserGivenName';
-const ONE_LETTER_NAME = 'U';
-const VALID_FAMILY_NAME = 'UserFamilyName';
-const THREE_HUNDRED_LETTERS_NAME = 'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu';
-const VALID_EMAIL = 'test_user@aaaaa.com';
-const VALID_EMAIL_SECOND = 'test_user2@aaaaa.com';
-const VALID_EMAIL_THIRD = 'test_user3@aaaaa.com';
-const INVALID_EMAIL_LENGTH = 'a@a.c';
+const testData = new TestData();
+const baseUrl = testData.url;
 
 describe('/POST /users/' , () => {
     describe('Create user.' , () => {
         it('Valid request. Return 201', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: VALID_GIVEN_NAME,
-                family_name: VALID_FAMILY_NAME
+                email: TestData.VALID_EMAIL,
+                given_name: TestData.VALID_GIVEN_NAME,
+                family_name: TestData.VALID_FAMILY_NAME
             };
             request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -32,9 +26,9 @@ describe('/POST /users/' , () => {
 
         it('Valid request 2. Return 201', (done) => {
             const body: any = {
-                email: VALID_EMAIL_SECOND,
-                given_name: VALID_GIVEN_NAME,
-                family_name: VALID_FAMILY_NAME
+                email: TestData.VALID_EMAIL_SECOND,
+                given_name: TestData.VALID_GIVEN_NAME,
+                family_name: TestData.VALID_FAMILY_NAME
             };
             request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -48,9 +42,9 @@ describe('/POST /users/' , () => {
 
         it('Valid request 3. Return 201', (done) => {
             const body: any = {
-                email: VALID_EMAIL_THIRD,
-                given_name: VALID_GIVEN_NAME,
-                family_name: VALID_FAMILY_NAME
+                email: TestData.VALID_EMAIL_THIRD,
+                given_name: TestData.VALID_GIVEN_NAME,
+                family_name: TestData.VALID_FAMILY_NAME
             };
             request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -64,9 +58,9 @@ describe('/POST /users/' , () => {
 
         it('Invalid request. Existing email. Return 400', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: VALID_GIVEN_NAME,
-                family_name: VALID_FAMILY_NAME
+                email: TestData.VALID_EMAIL,
+                given_name: TestData.VALID_GIVEN_NAME,
+                family_name: TestData.VALID_FAMILY_NAME
             };
             request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -81,9 +75,9 @@ describe('/POST /users/' , () => {
 
         it('Invalid request. Incorrect email. Return 400', (done) => {
             const body: any = {
-                email: INVALID_EMAIL_LENGTH,
-                given_name: VALID_GIVEN_NAME,
-                family_name: VALID_FAMILY_NAME
+                email: TestData.INVALID_EMAIL_LENGTH,
+                given_name: TestData.VALID_GIVEN_NAME,
+                family_name: TestData.VALID_FAMILY_NAME
             };
             request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -110,7 +104,7 @@ describe('/POST /users/' , () => {
         });
 
         it('Invalid request. Missing given_name property. Return 400', (done) => {
-            const body: any = { email: VALID_EMAIL };
+            const body: any = { email: TestData.VALID_EMAIL };
             request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
 
@@ -123,8 +117,8 @@ describe('/POST /users/' , () => {
 
         it('Invalid request. Missing family_name property. Return 400', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: VALID_GIVEN_NAME
+                email: TestData.VALID_EMAIL,
+                given_name: TestData.VALID_GIVEN_NAME
             };
             request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -138,8 +132,6 @@ describe('/POST /users/' , () => {
 
         it('Invalid request. Empty body. Return 400', (done) => {
             request.post(baseUrl + '/users/', (err, res) => {
-                const responseBody = JSON.parse(res.body);
-
                 expect(res.statusCode).to.equal(ApiConstants.STATUS_INVALID_REQUEST);
 
                 done();
@@ -148,9 +140,9 @@ describe('/POST /users/' , () => {
 
         it('Invalid request. Given name with incorrect length. Return 400', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: ONE_LETTER_NAME,
-                family_name: VALID_FAMILY_NAME
+                email: TestData.VALID_EMAIL,
+                given_name: TestData.ONE_LETTER_NAME,
+                family_name: TestData.VALID_FAMILY_NAME
             };
             request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -165,9 +157,9 @@ describe('/POST /users/' , () => {
 
         it('Invalid request. Given name with incorrect length. Return 400', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: THREE_HUNDRED_LETTERS_NAME,
-                family_name: VALID_FAMILY_NAME
+                email: TestData.VALID_EMAIL,
+                given_name: TestData.THREE_HUNDRED_LETTERS_NAME,
+                family_name: TestData.VALID_FAMILY_NAME
             };
             request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -182,9 +174,9 @@ describe('/POST /users/' , () => {
 
         it('Invalid request. Family name with incorrect length. Return 400', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: VALID_GIVEN_NAME,
-                family_name: ONE_LETTER_NAME
+                email: TestData.VALID_EMAIL,
+                given_name: TestData.VALID_GIVEN_NAME,
+                family_name: TestData.ONE_LETTER_NAME
             };
             request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;
@@ -199,9 +191,9 @@ describe('/POST /users/' , () => {
 
         it('Invalid request. Family name with incorrect length. Return 400', (done) => {
             const body: any = {
-                email: VALID_EMAIL,
-                given_name: VALID_GIVEN_NAME,
-                family_name: THREE_HUNDRED_LETTERS_NAME
+                email: TestData.VALID_EMAIL,
+                given_name: TestData.VALID_GIVEN_NAME,
+                family_name: TestData.THREE_HUNDRED_LETTERS_NAME
             };
             request.post({url: baseUrl + '/users/', body: body, json: true }, (err: any, res: any) => {
                 const responseBody = res.body;

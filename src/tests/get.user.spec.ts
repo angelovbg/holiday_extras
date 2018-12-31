@@ -1,8 +1,10 @@
 import { expect } from 'chai';
 import * as request from 'request';
 import { ApiConstants } from '../constants';
+import { TestData } from './test.data';
 
-const baseUrl = 'http://localhost:3000';
+const testData = new TestData();
+const baseUrl = testData.url;
 
 describe('/GET get all users /users/', () => {
     it('Valid request. Return 200', (done) => {

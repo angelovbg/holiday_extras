@@ -10,7 +10,6 @@ import { Context } from './services';
 class Server {
     public app: express.Application;
     private context: Context;
-    private userRouter: Router;
 
     public constructor() {
         dotenv.config({path: '.env'});

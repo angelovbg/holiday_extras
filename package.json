@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build-ts && npm run tslint && node dist/index.js",
-    "start:test:win": "npm run build-ts && npm run tslint && set DB_DATABASE=holiday_extras_test&& node dist/index.js",
-    "start:test:linux": "npm run build-ts && npm run tslint && DB_DATABASE=holiday_extras_test node dist/index.js",
+    "start:test:win": "npm run build-ts && npm run tslint && set APP_PORT=3001&& set DB_DATABASE=holiday_extras_test&& node dist/index.js",
+    "start:test:linux": "npm run build-ts && npm run tslint && APP_PORT=3001 DB_DATABASE=holiday_extras_test node dist/index.js",
     "build-ts": "tsc",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "migrate": "db-migrate up -e dev",
     "migrate:test": "db-migrate up -e test",
-    "test": "mocha -r ts-node/register src/tests/*.spec.ts"
+    "test:win": "set APP_PORT=3001&& mocha -r ts-node/register src/tests/*.spec.ts",
+    "test:linux": "APP_PORT=3001 mocha -r ts-node/register src/tests/*.spec.ts"
   },
   "repository": {
     "type": "git",
